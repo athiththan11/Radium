@@ -1,0 +1,156 @@
+{
+	"name": "radium",
+	"displayName": "Radium",
+	"description": "Adds color highlighting to log files to make it easier to follow the flow of log events and identify problems.",
+	"version": "0.0.1",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/athiththan11/radium/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/athiththan11/radium.git"
+	},
+	"engines": {
+		"vscode": "^1.42.0"
+	},
+	"publisher": "athiththan11",
+	"extensionKind": [
+		"ui",
+		"workspace"
+	],
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onCommand:radium.helloWorld",
+		"onLanguage:log"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"languages": [
+			{
+				"id": "log",
+				"aliases": [
+					"Log File",
+					"log"
+				],
+				"extensions": [
+					".log"
+				]
+			}
+		],
+		"grammars": [
+			{
+				"language": "log",
+				"scopeName": "text.log",
+				"path": "./syntaxes/log.tmLanguage"
+			}
+		],
+		"configuration": {
+			"type": "object",
+			"title": "The radium configuration",
+			"properties": {
+				"radium.patterns": {
+					"title": "Highlighting Patterns",
+					"description": "An array of patterns that shall be highlighted",
+					"type": "array",
+					"items": {
+						"title": "Patterns to highlight",
+						"description": "Pattern that is highlighted with the given foreground color",
+						"type": "object",
+						"properties": {
+							"pattern": {
+								"title": "The pattern that will be highlighted",
+								"description": "Either the exact string to highlight, or a regular expression pattern",
+								"type": "string",
+								"pattern": "^[^$|\\s]"
+							},
+							"foreground": {
+								"title": "Foreground color",
+								"description": "The foreground color that will be used for highlighting",
+								"type": "string",
+								"format": "color-hex"
+							},
+							"background": {
+								"title": "Background color",
+								"description": "The background color that will be used for highlighting",
+								"type": "string",
+								"format": "color-hex"
+							},
+							"fontWeight": {
+								"title": "CSS font weight",
+								"description": "Font weight, Examples: 'normal', 'bold'",
+								"type": "string"
+							},
+							"fontStyle": {
+								"title": "CSS font style",
+								"description": "Font style. Examples: 'normal', 'italic'",
+								"type": "string"
+							},
+							"border": {
+								"title": "CSS border definition",
+								"description": "Border definition. Example: '4px dotted blue'",
+								"type": "string"
+							},
+							"borderRadius": {
+								"title": "CSS border radius",
+								"description": "Border radius, defines how rounded a border is. Example: '3px'",
+								"type": "string"
+							},
+							"letterSpacing": {
+								"title": "CSS letter spacing",
+								"description": "Letter spacing, can be used for adjusting the horizontal distance between characters of the matched text. Example: '3px'",
+								"type": "string"
+							},
+							"overviewColor": {
+								"title": "Marker color in the ruler",
+								"description": "Marker color in the ruler to the right in the text editor window. Example: 'yellow'",
+								"type": "string"
+							},
+							"overviewRulerLane": {
+								"title": "Placement of the ruler marker",
+								"description": "Allows for configuring the placement of the ruler marker, if 'overviewColor' is set. Allowed values: Example: 'Left', 'Right', 'Center', 'Full'",
+								"type": "string"
+							},
+							"textDecoration": {
+								"title": "CSS text decoration",
+								"description": "Adds additional decorations to matched text. Example: 'underline overline dotted red'",
+								"type": "string"
+							},
+							"tip": {
+								"title": "Tooltip or message",
+								"description": "Tooltip or message related to highlighted pattern. Written in Markdown",
+								"type": "string"
+							}
+						},
+						"required": [
+							"pattern"
+						]
+					}
+				}
+			}
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "yarn run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "yarn run compile && yarn run lint",
+		"lint": "eslint src --ext ts",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.42.0",
+		"@types/glob": "^7.2.0",
+		"@types/mocha": "^9.1.0",
+		"@types/node": "14.x",
+		"@typescript-eslint/eslint-plugin": "^5.12.1",
+		"@typescript-eslint/parser": "^5.12.1",
+		"eslint": "^8.9.0",
+		"glob": "^7.2.0",
+		"mocha": "^9.2.1",
+		"typescript": "^4.5.5",
+		"@vscode/test-electron": "^2.1.2"
+	}
+}
